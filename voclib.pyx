@@ -17,8 +17,8 @@ cdef class vocoder:
 		if self.v:
 			PyMem_Free(<void*>self.v)
 
-	def __init__(self, unsigned char bands, unsigned char filters, int sample_rate):
-		if vl.voclib_initialize (self.v, <unsigned char>bands, <unsigned char>filters, <int>sample_rate) == 0:
+	def __init__(self, unsigned char bands, unsigned char filters, int sample_rate, carrier_channels):
+		if vl.voclib_initialize (self.v, <unsigned char>bands, <unsigned char>filters, <int>sample_rate, <unsigned char>carrier_channels) == 0:
 			raise vocoder_exception()
 
 	def process (self, float[:] carrier_buffer not None, float[:] modulator_buffer not None, float[:] output_buffer, int frames):
